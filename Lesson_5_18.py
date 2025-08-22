@@ -15,7 +15,7 @@ class Library:
         new_list = []
         for b in self.books:
             if b.title.lower() != book.title.lower() or b.author.lower() != book.author.lower():
-                new_list.append(book)
+                new_list.append(b)
         self.books = new_list
 
     def search_books(self, search_string):
@@ -44,7 +44,7 @@ run_cases = [
         ["To Kill a Mockingbird"],
     ),
 ]
-'''
+
 submit_cases = run_cases + [
     (
         "Lane's Library",
@@ -67,7 +67,7 @@ submit_cases = run_cases + [
         ["Great Expectations"],
     ),
 ]
-'''
+
 
 def test(
     library_name,
@@ -89,9 +89,6 @@ def test(
         print(f"Removing book {book_to_remove.title} by {book_to_remove.author}")
         library.remove_book(book_to_remove)
 
-        book_list = [book.title for book in library.books]
-        print(book_list)
-
         print(f"Searching for '{search_query}'")
         search_results = library.search_books(search_query)
         results_titles = [book.title for book in search_results]
@@ -112,7 +109,7 @@ def test(
 def main():
     passed = 0
     failed = 0
-    #skipped = len(submit_cases) - len(test_cases)
+    skipped = len(submit_cases) - len(test_cases)
     for test_case in test_cases:
         correct = test(*test_case)
         if correct:
@@ -124,16 +121,14 @@ def main():
         print("============= PASS ==============")
     else:
         print("============= FAIL ==============")
-    #if skipped > 0:
-    #    print(f"{passed} passed, {failed} failed, {skipped} skipped")
-    #else:
+    if skipped > 0:
+        print(f"{passed} passed, {failed} failed, {skipped} skipped")
+    else:
         print(f"{passed} passed, {failed} failed")
 
 
-test_cases = run_cases
-'''
+test_cases = submit_cases
 if "__RUN__" in globals():
     test_cases = run_cases
-'''
 
 main()
